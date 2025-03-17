@@ -39,7 +39,7 @@ def main():
             enemies.append(Enemy("enemy", (enemy_x_position, enemy_y_position)))
             enemy_timer = 0
         
-        # Atualizar entidades
+        # atualizar coisas
         background.move()
         player.update()
         
@@ -55,7 +55,7 @@ def main():
                 print("Game Over! Score:", score)
                 running = False
         
-        # Desenhar elementos
+        # criar elementos
         screen.fill((255, 255, 255))
         background.draw(screen)
 
@@ -64,7 +64,7 @@ def main():
             
         player.draw(screen)
         
-        # Mostrar pontuação
+        # pontuação
         score_text = font.render(f"Score: {score}", True, (0, 0, 0))
         screen.blit(score_text, (10, 10))
         
