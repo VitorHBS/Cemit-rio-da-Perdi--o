@@ -11,9 +11,8 @@ def main():
     pygame.display.set_caption("Corrida Infinita na Floresta")
     clock = pygame.time.Clock()
 
-    # Criar instâncias
     background = Background()
-    player = Player("player", (50, WIN_HEIGHT - 140))  # Ajuste a posição Y inicial do jogador aqui
+    player = Player("player", (50, WIN_HEIGHT - 140))
     
     enemies = []
     enemy_timer = 0
@@ -21,12 +20,10 @@ def main():
     score = 0
     font = pygame.font.SysFont(None, 36)
     
-    # Altura do "chão" - ajustar de acordo com a imagem de fundo
-    floor_height = 100  # Ajuste a altura do chão aqui
+    floor_height = 100
     
     running = True
     while running:
-        # Gestão de eventos
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -34,13 +31,11 @@ def main():
                 if event.key == pygame.K_SPACE:
                     player.jump()
 
-        # Gerar inimigos a cada 1.5 segundos aproximadamente
+        # Gerar inimigos
         enemy_timer += 1
         if enemy_timer > FPS * 1.5:
-            # Ajuste a posição Y aqui para mover as pedras mais para cima ou mais para baixo
-            enemy_y_position = WIN_HEIGHT - floor_height - OBSTACLE_HEIGHT  # Ajuste conforme necessário
-            # Ajuste a posição X aqui para garantir espaçamento adequado entre as pedras
-            enemy_x_position = WIN_WIDTH + random.randint(200, 400)  # Aumente o intervalo conforme necessário
+            enemy_y_position = WIN_HEIGHT - floor_height - OBSTACLE_HEIGHT 
+            enemy_x_position = WIN_WIDTH + random.randint(200, 400)
             enemies.append(Enemy("enemy", (enemy_x_position, enemy_y_position)))
             enemy_timer = 0
         
@@ -48,27 +43,22 @@ def main():
         background.move()
         player.update()
         
-        # Atualizar inimigos e verificar colisões
         for enemy in enemies[:]:
             enemy.move()
             
-            # Remover inimigos que saíram da tela
             if enemy.rect.right < 0:
                 enemies.remove(enemy)
                 score += 1
             
-            # Verificar colisão
+            # colisão
             if player.rect.colliderect(enemy.rect):
                 print("Game Over! Score:", score)
                 running = False
         
         # Desenhar elementos
-        screen.fill((255, 255, 255))  # Limpar a tela primeiro
+        screen.fill((255, 255, 255))
         background.draw(screen)
-        
-        # O chão faz parte da imagem de fundo, então não precisamos desenhar um chão adicional
-        # se a sua imagem já incluir o chão
-        
+
         for enemy in enemies:
             enemy.draw(screen)
             

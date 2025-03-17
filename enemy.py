@@ -10,7 +10,7 @@ class Enemy(Entity):
         self.rect = self.image.get_rect(topleft=position)
     
     def load_image(self):
-        image_path = os.path.join(r"c:\Users\Vitor\Desktop\Cemitério-da-Perdição\assets\enemy", "Rock.png")
+        image_path = os.path.join("assets", "enemy", "Rock.png")
         if os.path.exists(image_path):
             image = pygame.image.load(image_path).convert_alpha()
             image = pygame.transform.scale(image, (OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
@@ -22,3 +22,15 @@ class Enemy(Entity):
     
     def move(self):
         self.rect.x -= ENTITY_SPEED["obstacle"]
+    
+    def draw(self, screen):
+        # sombra
+        shadow_offset = 5
+        shadow_color = (50, 50, 50)
+        shadow_rect = self.rect.copy()
+        shadow_rect.x += shadow_offset
+        shadow_rect.y += shadow_offset
+        pygame.draw.ellipse(screen, shadow_color, shadow_rect)
+        
+        # pedra
+        screen.blit(self.image, self.rect)

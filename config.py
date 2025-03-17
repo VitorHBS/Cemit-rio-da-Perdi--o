@@ -1,5 +1,3 @@
-# config.py
-
 # Configurações da tela
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 400
@@ -18,8 +16,8 @@ PLAYER_GRAVITY = 0.6
 PLAYER_JUMP_STRENGTH = -10
 
 # Configurações do obstáculo
-OBSTACLE_WIDTH = 80  # Ajuste conforme necessário
-OBSTACLE_HEIGHT = 40  # Ajuste conforme necessário
+OBSTACLE_WIDTH = 80
+OBSTACLE_HEIGHT = 40 
 OBSTACLE_COLOR = BLUE
 OBSTACLE_SPEED = 6
 
@@ -31,7 +29,7 @@ FPS = 30
 WIN_WIDTH = 800
 WIN_HEIGHT = 400
 ENTITY_SPEED = {
-    "background": 3,  # Velocidade do fundo
+    "background": 3,
     "player": 0,
     "obstacle": 6,
 }

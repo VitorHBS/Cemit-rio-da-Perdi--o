@@ -7,7 +7,6 @@ class Background:
         self.layers = self.load_layers()
         
     def load_layers(self):
-        # Carregar todas as imagens de background da pasta assets
         image_files = [
             "sky.png",
             "back_trees.png",
@@ -27,7 +26,7 @@ class Background:
                 "image": image,
                 "rect1": image.get_rect(topleft=(0, 0)),
                 "rect2": image.get_rect(topleft=(800, 0)),
-                "speed": ENTITY_SPEED["background"] * (i + 1) / len(image_files)  # Velocidade diferente para cada camada
+                "speed": ENTITY_SPEED["background"] * (i + 1) / len(image_files)
             }
             layers.append(layer)
         return layers
@@ -37,7 +36,6 @@ class Background:
             layer["rect1"].x -= layer["speed"]
             layer["rect2"].x -= layer["speed"]
 
-            # Reposicionamento do fundo para efeito de rolagem infinita
             if layer["rect1"].right <= 0:
                 layer["rect1"].left = layer["rect2"].right
             if layer["rect2"].right <= 0:
