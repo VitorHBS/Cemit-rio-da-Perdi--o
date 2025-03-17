@@ -9,17 +9,21 @@ class Entity:
         if name == "background":
             self.image = pygame.Surface(size)
         
-        # Para player, criar um retângulo vermelho
+        # Para player, a imagem será definida posteriormente
         elif name == "player":
-            self.image = pygame.Surface((40, 40))
-            self.image.fill((255, 0, 0))
+            self.image = None
             
         # Para obstáculo, criar um retângulo marrom
         elif name == "obstacle":
             self.image = pygame.Surface((30, 50))
             self.image.fill((139, 69, 19))  # Cor marrom para obstáculos tipo árvore
+        
+        # Para inimigos, a imagem será definida posteriormente
+        else:
+            self.image = None
             
-        self.rect = self.image.get_rect(topleft=position)
+        self.rect = self.image.get_rect(topleft=position) if self.image else pygame.Rect(position, (50, 50))
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        if self.image:
+            screen.blit(self.image, self.rect)

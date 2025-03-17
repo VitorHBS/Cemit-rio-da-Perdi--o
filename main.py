@@ -3,7 +3,7 @@ import random
 from config import WIN_WIDTH, WIN_HEIGHT, FPS, ENTITY_SPEED, OBSTACLE_HEIGHT, OBSTACLE_WIDTH
 from background import Background
 from player import Player
-from obstacle import Obstacle
+from enemy import Enemy
 
 def main():
     pygame.init()
@@ -13,16 +13,16 @@ def main():
 
     # Criar instâncias
     background = Background()
-    player = Player("player", (50, WIN_HEIGHT - 90))
+    player = Player("player", (50, WIN_HEIGHT - 140))  # Ajuste a posição Y inicial do jogador aqui
     
-    obstacles = []
-    obstacle_timer = 0
+    enemies = []
+    enemy_timer = 0
     
     score = 0
     font = pygame.font.SysFont(None, 36)
     
     # Altura do "chão" - ajustar de acordo com a imagem de fundo
-    floor_height = 50
+    floor_height = 100  # Ajuste a altura do chão aqui
     
     running = True
     while running:
@@ -34,27 +34,31 @@ def main():
                 if event.key == pygame.K_SPACE:
                     player.jump()
 
-        # Gerar obstáculos a cada 1.5 segundos aproximadamente
-        obstacle_timer += 1
-        if obstacle_timer > FPS * 1.5:
-            obstacles.append(Obstacle("obstacle", (WIN_WIDTH, WIN_HEIGHT - floor_height - OBSTACLE_HEIGHT)))
-            obstacle_timer = 0
+        # Gerar inimigos a cada 1.5 segundos aproximadamente
+        enemy_timer += 1
+        if enemy_timer > FPS * 1.5:
+            # Ajuste a posição Y aqui para mover as pedras mais para cima ou mais para baixo
+            enemy_y_position = WIN_HEIGHT - floor_height - OBSTACLE_HEIGHT  # Ajuste conforme necessário
+            # Ajuste a posição X aqui para garantir espaçamento adequado entre as pedras
+            enemy_x_position = WIN_WIDTH + random.randint(200, 400)  # Aumente o intervalo conforme necessário
+            enemies.append(Enemy("enemy", (enemy_x_position, enemy_y_position)))
+            enemy_timer = 0
         
         # Atualizar entidades
         background.move()
         player.update()
         
-        # Atualizar obstáculos e verificar colisões
-        for obstacle in obstacles[:]:
-            obstacle.move()
+        # Atualizar inimigos e verificar colisões
+        for enemy in enemies[:]:
+            enemy.move()
             
-            # Remover obstáculos que saíram da tela
-            if obstacle.rect.right < 0:
-                obstacles.remove(obstacle)
+            # Remover inimigos que saíram da tela
+            if enemy.rect.right < 0:
+                enemies.remove(enemy)
                 score += 1
             
             # Verificar colisão
-            if player.rect.colliderect(obstacle.rect):
+            if player.rect.colliderect(enemy.rect):
                 print("Game Over! Score:", score)
                 running = False
         
@@ -65,8 +69,8 @@ def main():
         # O chão faz parte da imagem de fundo, então não precisamos desenhar um chão adicional
         # se a sua imagem já incluir o chão
         
-        for obstacle in obstacles:
-            obstacle.draw(screen)
+        for enemy in enemies:
+            enemy.draw(screen)
             
         player.draw(screen)
         

@@ -18,8 +18,8 @@ PLAYER_GRAVITY = 0.6
 PLAYER_JUMP_STRENGTH = -10
 
 # Configurações do obstáculo
-OBSTACLE_WIDTH = 30
-OBSTACLE_HEIGHT = 50
+OBSTACLE_WIDTH = 80  # Ajuste conforme necessário
+OBSTACLE_HEIGHT = 40  # Ajuste conforme necessário
 OBSTACLE_COLOR = BLUE
 OBSTACLE_SPEED = 6
 

@@ -20,7 +20,7 @@ class Background:
         ]
         layers = []
         for i, image_file in enumerate(image_files):
-            image_path = os.path.join("c:\\Users\\Vitor\\Desktop\\Trabalho facu\\endless_runner\\assets", image_file)
+            image_path = os.path.join(r"c:\Users\Vitor\Desktop\Cemitério-da-Perdição\assets", image_file)
             image = pygame.image.load(image_path).convert_alpha()
             image = pygame.transform.scale(image, (800, 400))
             layer = {
